@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import Logo from "@/components/shared/Logo";
 import NavLink from "./NavLink";
+import Link from "next/link";
 
 const MobileMenu = () => {
   return (
@@ -30,9 +31,9 @@ const MobileMenu = () => {
             <ul className="flex flex-col gap-4 text-lg uppercase tracking-wider">
               <NavLink />
             </ul>
-            <div className="mt-4">
+            <Link href={"login"} className="mt-4">
               <Button className="w-full">Login</Button>
-            </div>
+            </Link>
           </div>
         </SheetContent>
       </Sheet>

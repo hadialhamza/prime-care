@@ -21,7 +21,7 @@ const NavLink = () => {
           className={
             path === navLink.href
               ? "font-medium text-primary dark:text-primary-foreground"
-              : "text-muted-foreground hover:text-primary dark:hover:text-primary-foreground transition-colors duration-300"
+              : "text-foreground/80 hover:text-primary dark:hover:text-primary-foreground transition-transform duration-200 hover:scale-103"
           }
         >
           {navLink.path}

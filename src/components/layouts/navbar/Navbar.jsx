@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import NavLink from "./NavLink";
 import ThemeToggle from "./ThemeToggle";
 import MobileMenu from "./MobileMenu";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -20,9 +21,9 @@ const Navbar = () => {
         </div>
         <div className="flex-1 text-end flex justify-end items-center gap-4">
           <ThemeToggle />
-          <div className="hidden md:flex">
+          <Link href={"login"} className="hidden md:flex">
             <Button>Login</Button>
-          </div>
+          </Link>
           <div className="md:hidden">
             <MobileMenu />
           </div>
