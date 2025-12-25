@@ -141,7 +141,7 @@ const SocialLink = ({ href, icon }) => (
   <a
     target="_blank"
     href={href}
-    className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary dark:text-slate-400 hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-transform transform hover:-translate-y-1 duration-200"
+    className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary dark:text-slate-400 hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all hover:-translate-y-1 duration-300"
   >
     {icon}
   </a>
