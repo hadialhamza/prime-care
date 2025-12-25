@@ -4,30 +4,28 @@ import Logo from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import NavLink from "./NavLink";
 import ThemeToggle from "./ThemeToggle";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
-  const navLinks = (
-    <>
-      <NavLink href="/">Home</NavLink>
-      <NavLink href="/about">About</NavLink>
-      <NavLink href="/services">Services</NavLink>
-      <NavLink href="/contact">Contact</NavLink>
-    </>
-  );
   return (
     <nav className="sticky top-0 py-3 border">
       <Container className={"flex items-center justify-between"}>
         <div className="flex-1">
           <Logo />
         </div>
-        <div className="flex-1">
+        <div className="hidden md:flex flex-1">
           <ul className="text-sm flex items-center justify-center gap-4 uppercase tracking-wider transition-colors duration-500">
-            {navLinks}
+            <NavLink />
           </ul>
         </div>
         <div className="flex-1 text-end flex justify-end items-center gap-4">
           <ThemeToggle />
-          <Button>Login</Button>
+          <div className="hidden md:flex">
+            <Button>Login</Button>
+          </div>
+          <div className="md:hidden">
+            <MobileMenu />
+          </div>
         </div>
       </Container>
     </nav>
