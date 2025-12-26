@@ -5,11 +5,11 @@ import TestimonialSection from "@/components/home/TestimonialSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <div>
       <BannerSection />
       <AboutSection />
       <ServiceSection />
       <TestimonialSection />
-    </main>
+    </div>
   );
 }

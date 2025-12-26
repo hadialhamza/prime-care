@@ -13,6 +13,7 @@ const client = new MongoClient(uri, {
 export const collections = {
   users: "users",
   services: "services",
+  bookings: "bookings",
 };
 
 export const connectToDatabase = (collectionName) => {

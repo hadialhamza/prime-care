@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/layouts/Footer";
 import Navbar from "@/components/layouts/navbar/Navbar";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "@/components/shared/AuthProvider";
 
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -18,14 +19,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="light">
       <body className={`${montserrat.className} antialiased`}>
-        <header>
-          <Navbar />
-        </header>
-        <main>{children}</main>
-        <footer>
-          <Footer />
-        </footer>
-        <Toaster />
+        <AuthProvider>
+          <div className="flex flex-col min-h-screen">
+            <header>
+              <Navbar />
+            </header>
+            <main className="flex-1 flex flex-col">{children}</main>
+            <footer>
+              <Footer />
+            </footer>
+            <Toaster />
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
