@@ -2,6 +2,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layouts/Footer";
 import Navbar from "@/components/layouts/navbar/Navbar";
+import { Toaster } from "react-hot-toast";
 
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
         <footer>
           <Footer />
         </footer>
+        <Toaster />
       </body>
     </html>
   );

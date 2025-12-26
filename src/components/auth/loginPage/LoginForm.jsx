@@ -8,12 +8,11 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import FormInput from "@/components/shared/FormInput";
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const {
@@ -64,57 +63,33 @@ const LoginForm = () => {
         {/* Login Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Email Field */}
-          <div className="">
-            <label className="text-sm font-medium leading-none text-white">
-              Email
-            </label>
-            <input
-              {...register("email", { required: "Email is required" })}
-              type="email"
-              placeholder="Enter your email"
-              className="mt-2 flex h-11 w-full rounded-lg border border-transparent bg-white dark:bg-white/10 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 transition-all shadow-sm"
-            />
-            {errors.email && (
-              <p className="text-xs text-red-300 font-medium mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="Enter your name"
+            register={register}
+            rules={{ required: "Email is required" }}
+            error={errors.email}
+          />
 
           {/* Password Field */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium leading-none text-white">
-                Password
-              </label>
-              <Link
-                href="#"
-                className="text-sm text-blue-100 hover:text-white hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
-            <div className="relative">
-              <input
-                {...register("password", { required: "Password is required" })}
-                type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
-                className="flex h-11 w-full rounded-lg border border-transparent bg-white dark:bg-white/10 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 pr-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 transition-all shadow-sm"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors"
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-            </div>
-            {errors.password && (
-              <p className="text-xs text-red-300 font-medium mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            register={register}
+            rules={{ required: "Password is required" }}
+            error={errors.password}
+          >
+            <Link
+              href="#"
+              className="text-sm text-blue-100 hover:text-white hover:underline underline-offset-4"
+            >
+              Forgot password?
+            </Link>
+          </FormInput>
 
           {/* Submit Button */}
           <Button
