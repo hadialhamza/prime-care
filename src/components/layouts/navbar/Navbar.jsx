@@ -18,7 +18,7 @@ const Navbar = () => {
             <NavLink />
           </ul>
         </div>
-        <div className="h-10 flex-1 text-end flex justify-end items-center gap-4">
+        <div className="h-10 flex-1 text-end flex justify-end items-center gap-2 md:gap-4">
           <ThemeToggle />
           <UserDropdown />
           <div className="md:hidden">

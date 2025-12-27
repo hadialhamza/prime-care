@@ -10,7 +10,7 @@ const logoFont = PT_Serif({
 const Logo = () => {
   return (
     <Link href="/" className="inline-block">
-      <div className="flex items-center uppercase tracking-tighter gap-1.5 text-3xl ">
+      <div className="flex items-center uppercase tracking-tighter gap-1 text-2xl">
         <span className="font-semibold pl-1 pr-1.5 bg-primary text-primary-foreground">
           prime
         </span>

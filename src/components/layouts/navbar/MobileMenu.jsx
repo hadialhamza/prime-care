@@ -27,10 +27,16 @@ const MobileMenu = () => {
     <div className="flex md:hidden items-center gap-4">
       <Sheet>
         <SheetTrigger asChild>
-          <button className="bg-primary p-1.5 rounded-sm text-primary-foreground cursor-pointer">
-            <Menu />
+          <button
+            aria-label="Open menu"
+            className="group relative inline-flex items-center justify-center h-9 w-9 rounded-lg bg-primary text-primary-foreground shadow-sm transition-all duration-200 ease-out hover:shadow-md hover:scale-[1.04] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <Menu className="h-5 w-5 transition-transform duration-200 group-hover:rotate-90" />
+
+            <span className="pointer-events-none absolute inset-0 rounded-lg bg-primary/20 opacity-0 blur-md transition-opacity duration-200 group-hover:opacity-100" />
           </button>
         </SheetTrigger>
+
         <SheetContent side="left" className="w-80 px-5 border-border/20">
           <SheetHeader>
             <SheetTitle className="flex justify-center">
