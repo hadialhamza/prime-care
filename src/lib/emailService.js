@@ -1,21 +1,17 @@
 import nodemailer from "nodemailer";
 
 export const sendInvoiceEmail = async (bookingData) => {
-  // --- DEBUGGING START ---
-  console.log("Email User:", process.env.EMAIL_USER);
-  console.log("Password Loaded:", process.env.EMAIL_PASSWORD ? "Yes" : "No");
-  // --- DEBUGGING END ---
   try {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com", // Explicitly state the host
-      port: 587, // Change port to 587 (often allowed by ISPs)
-      secure: false, // Must be false for port 587
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
       tls: {
-        rejectUnauthorized: false, // Helps avoid some self-signed certificate errors
+        rejectUnauthorized: false,
       },
     });
 
@@ -73,7 +69,13 @@ export const sendInvoiceEmail = async (bookingData) => {
     console.log("Email sent: " + info.response);
     return true;
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("Error sending email:", {
+      message: error?.message,
+      code: error?.code,
+      response: error?.response,
+      responseCode: error?.responseCode,
+      command: error?.command,
+    });
     return false;
   }
 };

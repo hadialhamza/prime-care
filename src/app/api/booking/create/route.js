@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase, collections } from "@/lib/dbConnect";
-import { sendInvoiceEmail } from "@/lib/emailService"; // <--- Import here
+import { sendInvoiceEmail } from "@/lib/emailService";
 
 export async function POST(req) {
   try {
@@ -14,7 +14,7 @@ export async function POST(req) {
       );
     }
 
-    const bookingsCollection = await connectToDatabase(collections.bookings);
+    const bookingsCollection = connectToDatabase(collections.bookings);
 
     // Insert into DB
     const result = await bookingsCollection.insertOne({
@@ -23,10 +23,7 @@ export async function POST(req) {
     });
 
     if (result.acknowledged) {
-      // --- CHALLENGE PART: SEND EMAIL ---
-      // We don't await this because we don't want to delay the UI response
-      // if the email takes a few seconds. It runs in the background.
-      await sendInvoiceEmail(bookingData).catch((err) =>
+      sendInvoiceEmail(bookingData).catch((err) =>
         console.error("Email failed:", err)
       );
 

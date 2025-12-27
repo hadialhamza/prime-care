@@ -21,7 +21,7 @@ const UserDropdown = () => {
   if (status === "loading") {
     return (
       <div className="hidden md:flex items-center">
-        <div className="h-10 w-10 rounded-full animate-pulse bg-slate-200 dark:bg-slate-800" />
+        <div className="h-10 w-10 rounded-full animate-pulse bg-slate-300 dark:bg-slate-600" />
       </div>
     );
   }
@@ -42,13 +42,13 @@ const UserDropdown = () => {
     <div className="hidden md:flex">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Avatar className="h-10 w-10 border hover:scale-105 transition-transform duration-300 cursor-pointer">
+          <Avatar className="h-10 w-10 hover:scale-105 transition-transform duration-300 cursor-pointer">
             <AvatarImage src={avatar} alt="User Avatar" />
           </Avatar>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
-          className="w-64 p-2 rounded-2xl shadow-2xl bg-background"
+          className="w-64 p-2 rounded-2xl shadow-2xl bg-background border-border/20"
           align="end"
         >
           {/* User Profile Section */}
@@ -57,7 +57,7 @@ const UserDropdown = () => {
               <h3 className="text-lg font-semibold leading-none text-gray-900 dark:text-white truncate">
                 {name}
               </h3>
-              <p className="text-sm leading-none text-muted-foreground truncate">
+              <p className="text-sm leading-none text-muted-foreground truncate pb-px">
                 {email}
               </p>
             </div>

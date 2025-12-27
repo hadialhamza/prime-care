@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -30,11 +31,14 @@ const MobileMenu = () => {
             <Menu />
           </button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-80 px-5">
+        <SheetContent side="left" className="w-80 px-5 border-border/20">
           <SheetHeader>
             <SheetTitle className="flex justify-center">
               <Logo />
             </SheetTitle>
+            <SheetDescription className="sr-only">
+              Mobile navigation menu
+            </SheetDescription>
           </SheetHeader>
 
           {/* User Info Section for Mobile */}

@@ -8,7 +8,7 @@ import UserDropdown from "./UserDropdown";
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 py-2 shadow-sm border-b">
+    <nav>
       <Container className={"flex items-center justify-between"}>
         <div className="flex-1">
           <Logo />
