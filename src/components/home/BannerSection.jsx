@@ -81,7 +81,7 @@ const BannerSection = () => {
   const [paginationEl, setPaginationEl] = useState(null);
 
   return (
-    <section className="relative w-full h-[85vh] min-h-150 overflow-hidden">
+    <section className="relative w-full h-[70vh] min-h-150 overflow-hidden">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         speed={1000}

@@ -1,11 +1,10 @@
 import React from "react";
-import { cn } from "@/lib/utils"; // Ensure you have a cn utility, or remove this and use template literals
 
 const SectionHeading = ({
   badge,
   title,
   description,
-  align = "center", // 'left' | 'center' | 'right'
+  align = "center",
   className,
 }) => {
   const alignmentClass = {
@@ -35,7 +34,7 @@ const SectionHeading = ({
 
       {/* Description */}
       {description && (
-        <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
           {description}
         </p>
       )}

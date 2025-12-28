@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import Container from "../shared/Container";
 import SectionHeading from "../shared/SectionHeading";
-import { Button } from "@/components/ui/button";
+import MyBtn from "../shared/MyBtn";
 
 const AboutSection = () => {
   const benefits = [
@@ -15,15 +15,15 @@ const AboutSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-white dark:bg-slate-950 overflow-hidden">
+    <section className="py-20 sm:py-30 bg-background overflow-hidden">
       <Container>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* --- Left Side: Image Composition --- */}
-          <div className="relative">
+          <div className="relative sm:mx-10 lg:mx-0">
             {/* Main Image */}
-            <div className="relative h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800">
+            <div className="relative h-100 md:h-125 w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800">
               <Image
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
+                src="https://plus.unsplash.com/premium_photo-1663134144095-a1cf58ce152f"
                 alt="Caregiver helping senior"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -34,7 +34,7 @@ const AboutSection = () => {
             {/* Floating Secondary Image (Bottom Right) */}
             <div className="absolute -bottom-10 -right-10 w-48 h-48 rounded-2xl overflow-hidden border-4 border-white dark:border-slate-950 shadow-xl hidden md:block">
               <Image
-                src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1000&auto=format&fit=crop"
+                src="https://plus.unsplash.com/premium_photo-1664046912267-5c169746fdb6"
                 alt="Happy Doctor"
                 fill
                 sizes="200px"
@@ -43,7 +43,7 @@ const AboutSection = () => {
             </div>
 
             {/* Decorative Dot Pattern */}
-            <div className="absolute -z-10 top-10 -left-10 text-slate-100 dark:text-slate-900">
+            <div className="absolute z-10 -top-5 -left-5 text-primary/50 dark:text-white/80">
               <svg
                 width="100"
                 height="100"
@@ -88,7 +88,7 @@ const AboutSection = () => {
                   <div className="w-6 h-6 rounded-full bg-blue-50 dark:bg-blue-900/50 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
                     <CheckCircle2 className="w-4 h-4 text-primary group-hover:text-white transition-colors" />
                   </div>
-                  <span className="text-slate-700 dark:text-slate-300 font-medium">
+                  <span className="text-slate-700 dark:text-slate-300 text-sm md:text-base font-medium">
                     {item}
                   </span>
                 </div>
@@ -98,9 +98,7 @@ const AboutSection = () => {
             {/* CTA Button */}
             <div className="pt-4">
               <Link href="/about">
-                <Button className="h-12 px-8 rounded-full text-base shadow-lg shadow-primary/20 hover:shadow-xl hover:-translate-y-1 transition-all">
-                  Learn More About Us <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+                <MyBtn icon={ArrowRight}>More About Us</MyBtn>
               </Link>
             </div>
           </div>
