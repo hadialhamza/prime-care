@@ -7,9 +7,7 @@ import React from "react";
 
 const LoginPage = () => {
   return (
-    <div
-      className={`bg-linear-to-r from-primary to-primary/80 dark:from-sidebar dark:to-sidebar/90 pb-20`}
-    >
+    <div className="bg-linear-to-r from-primary to-primary/80 dark:from-sidebar dark:to-sidebar/90 pb-20">
       <Container>
         <div className="py-6 pl-5 inline-block">
           <Link
@@ -23,7 +21,7 @@ const LoginPage = () => {
             Back to Home
           </Link>
         </div>
-        <div className="grid lg:grid-cols-2 gap-10 md:p-6 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 md:p-6">
           <LoginBanner />
           <LoginForm />
         </div>
