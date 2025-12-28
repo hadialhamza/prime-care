@@ -67,8 +67,7 @@ const heroContent = [
     highlight: "Sick & Recovering",
     description:
       "Specialized assistance for loved ones recovering from illness or surgery. We manage medication, monitor vitals, and ensure maximum comfort during recovery.",
-    image:
-      "https://cdn.pixabay.com/photo/2016/12/12/17/11/hospice-1902144_960_720.jpg",
+    image: "https://i.ibb.co.com/3Y0PPPWf/old-caregiver.jpg",
     badgeColor: "bg-rose-500",
     btnColor: "bg-rose-600 hover:bg-rose-700",
     textColor: "text-rose-500",

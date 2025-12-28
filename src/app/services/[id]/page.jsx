@@ -12,9 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/shared/Container";
-import SectionHeading from "@/components/shared/SectionHeading";
 
-// --- MOCK DATA (Simulating Database) ---
 const servicesData = [
   {
     id: "baby-sitting",
@@ -32,8 +30,7 @@ const servicesData = [
     price: "From $15/hour",
     rating: 4.9,
     reviews: 120,
-    image:
-      "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?q=80&w=1000&auto=format&fit=crop",
+    image: "https://i.ibb.co.com/Y43CRjS4/baby-caregiver.png",
   },
   {
     id: "elderly-care",
@@ -51,12 +48,11 @@ const servicesData = [
     price: "From $18/hour",
     rating: 4.8,
     reviews: 85,
-    image:
-      "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=1000&auto=format&fit=crop",
+    image: "https://i.ibb.co.com/3Y0PPPWf/old-caregiver.jpg",
   },
   {
     id: "sick-care",
-    title: "Sick & Special Needs Care",
+    title: "Special Needs Care",
     tagline: "Professional medical assistance at home.",
     description:
       "Recovery at home is faster with the right support. Our specialized caregivers and nurses handle post-surgery care, chronic illness management, and special needs assistance with clinical expertise.",
@@ -70,19 +66,15 @@ const servicesData = [
     price: "From $25/hour",
     rating: 5.0,
     reviews: 42,
-    image:
-      "https://images.unsplash.com/photo-1584515933487-9bfa05d1c20f?q=80&w=1000&auto=format&fit=crop",
+    image: "https://i.ibb.co.com/PZxSDyC4/nerd-caregiver.png",
   },
 ];
 
 const ServiceDetailsPage = async ({ params }) => {
-  // Await params in Next.js 15+ (if you are on older version, remove await)
   const { id } = await params;
 
-  // Find the service matching the ID
   const service = servicesData.find((s) => s.id === id);
 
-  // If service not found, show 404 page
   if (!service) {
     notFound();
   }
@@ -90,7 +82,7 @@ const ServiceDetailsPage = async ({ params }) => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
       {/* --- Header Image Banner --- */}
-      <div className="relative h-[40vh] w-full">
+      <div className="relative h-[60vh] w-full">
         <Image
           src={service.image}
           alt={service.title}
@@ -98,7 +90,7 @@ const ServiceDetailsPage = async ({ params }) => {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 via-slate-900/50 to-transparent"></div>
         <Container className="relative h-full flex flex-col justify-end pb-12">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 backdrop-blur-md mb-4">
@@ -119,9 +111,7 @@ const ServiceDetailsPage = async ({ params }) => {
 
       <Container className="mt-12">
         <div className="grid lg:grid-cols-3 gap-12">
-          {/* --- LEFT COLUMN: Details --- */}
           <div className="lg:col-span-2 space-y-12">
-            {/* Overview */}
             <section>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                 Service Overview
@@ -131,7 +121,6 @@ const ServiceDetailsPage = async ({ params }) => {
               </p>
             </section>
 
-            {/* Features List */}
             <section>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                 What&apos;s Included
@@ -151,7 +140,6 @@ const ServiceDetailsPage = async ({ params }) => {
               </div>
             </section>
 
-            {/* Safety Note */}
             <section className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl border border-blue-100 dark:border-blue-800">
               <div className="flex gap-4">
                 <div className="p-3 bg-blue-100 dark:bg-blue-800 rounded-full h-fit">
@@ -171,7 +159,6 @@ const ServiceDetailsPage = async ({ params }) => {
             </section>
           </div>
 
-          {/* --- RIGHT COLUMN: Booking Card (Sticky) --- */}
           <div className="relative">
             <div className="sticky top-24 bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
               <div className="flex justify-between items-start mb-6">
@@ -205,7 +192,6 @@ const ServiceDetailsPage = async ({ params }) => {
                 </div>
               </div>
 
-              {/* Requirement: Book Service button navigates to Booking Page */}
               <Link href={`/booking/${service.id}`} className="w-full">
                 <Button className="w-full h-12 text-lg rounded-xl shadow-lg shadow-primary/20">
                   Book This Service <ArrowRight className="ml-2 w-5 h-5" />
