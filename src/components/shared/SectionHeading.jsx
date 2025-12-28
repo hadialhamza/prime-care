@@ -6,6 +6,7 @@ const SectionHeading = ({
   description,
   align = "center",
   className,
+  titleClassName,
 }) => {
   const alignmentClass = {
     left: "text-left items-start",
@@ -28,7 +29,9 @@ const SectionHeading = ({
       )}
 
       {/* Title */}
-      <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+      <h2
+        className={`text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight ${titleClassName}`}
+      >
         {title}
       </h2>
 
