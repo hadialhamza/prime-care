@@ -82,7 +82,7 @@
 
 .dark {
   /* --- DARK MODE THEME SETTINGS (OKLCH channels) --- */
-  --background: 0.116 0.043 272.22;
+  --background: 0.208 0.04 264;
   --foreground: 0.985 0 0;
   --card: 0.14 0.04 272.22;
   --card-foreground: 0.985 0 0;

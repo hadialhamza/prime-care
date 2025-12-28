@@ -9,7 +9,7 @@ const services = [
   {
     id: 1,
     title: "Baby Sitting",
-    slug: "baby-sitting", // Will be used for the route /services/baby-sitting
+    slug: "baby-sitting",
     description:
       "Reliable and caring babysitters to ensure your child's safety and happiness while you are away.",
     icon: <Baby className="w-8 h-8 text-purple-600 dark:text-purple-400" />,
@@ -42,12 +42,16 @@ const services = [
 
 const ServiceSection = () => {
   return (
-    <section className="py-20 bg-slate-50 dark:bg-slate-900/50">
+    <section className="pb-20 md:pb-30 bg-slate-50 dark:bg-slate-900/50">
       <Container>
         {/* reusable Heading */}
         <SectionHeading
           badge="Our Services"
-          title="Professional Care Solutions"
+          title={
+            <span>
+              Professional <span className="text-primary">Care Solutions</span>
+            </span>
+          }
           description="We offer a range of specialized services tailored to meet the unique needs of your family members."
           className="mb-16"
         />
@@ -60,7 +64,7 @@ const ServiceSection = () => {
               className={`group relative bg-white dark:bg-slate-950 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${service.borderColor}`}
             >
               {/* Hover Gradient Overlay (Subtle) */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 rounded-3xl bg-linear-to-br from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Icon */}
               <div
