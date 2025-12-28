@@ -1,14 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Star, HeartPulse, Baby, User } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowLeft,
+  Star,
+  HeartPulse,
+  Baby,
+  User,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Container from "../shared/Container";
@@ -17,7 +23,7 @@ const heroContent = [
   {
     id: 1,
     service: "Elderly Care",
-    icon: <User className="w-5 h-5" />,
+    icon: <User className="w-4 h-4" />,
     title: "Dignified Care for",
     highlight: "Your Parents",
     description:
@@ -30,7 +36,7 @@ const heroContent = [
   {
     id: 2,
     service: "Baby Sitting",
-    icon: <Baby className="w-5 h-5" />,
+    icon: <Baby className="w-4 h-4" />,
     title: "Nurturing Love for",
     highlight: "Your Little Ones",
     description:
@@ -43,7 +49,7 @@ const heroContent = [
   {
     id: 3,
     service: "Special Needs",
-    icon: <HeartPulse className="w-5 h-5" />,
+    icon: <HeartPulse className="w-4 h-4" />,
     title: "Medical Support at",
     highlight: "Your Home",
     description:
@@ -56,7 +62,7 @@ const heroContent = [
   {
     id: 4,
     service: "Sick Care",
-    icon: <HeartPulse className="w-5 h-5" />,
+    icon: <HeartPulse className="w-4 h-4" />,
     title: "Compassionate Support for",
     highlight: "Sick & Recovering",
     description:
@@ -65,28 +71,37 @@ const heroContent = [
       "https://cdn.pixabay.com/photo/2016/12/12/17/11/hospice-1902144_960_720.jpg",
     badgeColor: "bg-rose-500",
     btnColor: "bg-rose-600 hover:bg-rose-700",
-    textColor: "text-rose-400",
+    textColor: "text-rose-500",
   },
 ];
 
 const BannerSection = () => {
+  const [prevEl, setPrevEl] = useState(null);
+  const [nextEl, setNextEl] = useState(null);
+  const [paginationEl, setPaginationEl] = useState(null);
+
   return (
-    <section className="relative w-full h-[85vh] min-h-150 bg-slate-900">
+    <section className="relative w-full h-[85vh] min-h-150 overflow-hidden">
       <Swiper
-        modules={[Autoplay, EffectFade, Pagination, Navigation]}
-        effect="fade"
+        modules={[Autoplay, Pagination, Navigation]}
         speed={1000}
         spaceBetween={0}
         slidesPerView={1}
         loop={true}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        navigation={true}
-        className="h-full w-full group"
+        navigation={{
+          prevEl: prevEl,
+          nextEl: nextEl,
+        }}
+        pagination={{
+          el: paginationEl,
+          clickable: true,
+        }}
+        className="h-full w-full"
       >
         {heroContent.map((item) => (
           <SwiperSlide key={item.id} className="relative w-full h-full">
-            {/* --- Background Image --- */}
+            {/* Background Image */}
             <div className="absolute inset-0 w-full h-full">
               <Image
                 src={item.image}
@@ -95,53 +110,63 @@ const BannerSection = () => {
                 className="object-cover"
                 priority
               />
-              {/* Dark Overlay for Text Readability */}
-              <div className="absolute inset-0 bg-black/50"></div>
+              <div className="absolute inset-0 bg-black/60" />
             </div>
 
-            {/* --- Content Overlay --- */}
-            <Container className="relative z-10 h-full flex flex-col justify-center">
-              <div className="max-w-4xl mx-auto space-y-6 text-center">
+            {/* Content Overlay */}
+            <Container className="relative z-10 h-full flex flex-col justify-center items-center text-center">
+              <div className="max-w-3xl space-y-4">
                 {/* Badge */}
                 <div
-                  className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white w-fit`}
+                  className="slide-up-content inline-flex items-center gap-2 p-1 md:p-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white mx-auto"
+                  style={{ transitionDelay: "800ms" }}
                 >
                   <span
-                    className={`p-1.5 rounded-full ${item.badgeColor} text-white`}
+                    className={`p-1 rounded-full ${item.badgeColor} text-white`}
                   >
                     {item.icon}
                   </span>
-                  <span className="text-sm font-bold tracking-wide uppercase">
+                  <span className="text-xs md:text-sm font-semibold uppercase pr-1">
                     {item.service}
                   </span>
                 </div>
 
                 {/* Heading */}
-                <h1 className="w-full text-5xl font-black text-white leading-[1.1]">
+                <h1
+                  className="slide-up-content w-full text-3xl md:text-5xl font-bold md:font-extrabold text-white leading-[1.1]"
+                  style={{ transitionDelay: "1000ms" }}
+                >
                   {item.title} <br />
                   <span className={item.textColor}>{item.highlight}</span>
                 </h1>
 
                 {/* Description */}
-                <p className="text-lg md:text-xl text-slate-200 leading-relaxed">
+                <p
+                  className="slide-up-content max-w-lg lg:max-w-full mx-auto text-sm md:text-lg text-slate-200 leading-relaxed"
+                  style={{ transitionDelay: "1200ms" }}
+                >
                   {item.description}
                 </p>
 
                 {/* Buttons */}
-                <div className="flex flex-col items-center justify-center sm:flex-row gap-4 pt-4">
+                <div
+                  className="slide-up-content flex items-center justify-center gap-2 md:gap-4 pt-3"
+                  style={{ transitionDelay: "1400ms" }}
+                >
                   <Link href="/services">
                     <Button
                       size="lg"
-                      className={`h-14 px-8 text-lg rounded-full text-white border-0 transition-all hover:scale-105 duration-300 ${item.btnColor}`}
+                      className={`group h-10 md:h-12 text-sm md:text-base rounded-full text-white border-0 transition-transform hover:scale-105 duration-300 ${item.btnColor}`}
                     >
-                      Book Now <ArrowRight className="ml-2 w-5 h-5" />
+                      Book Now{" "}
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                     </Button>
                   </Link>
                   <Link href="/about">
                     <Button
                       variant="outline"
                       size="lg"
-                      className="h-14 px-8 text-lg rounded-full border-2 border-white text-white bg-transparent hover:bg-white hover:text-slate-900 transition-colors"
+                      className="h-10 md:h-12 text-sm md:text-base rounded-full border border-transparent text-white bg-white/40 hover:bg-white hover:text-slate-900 transition-all hover:scale-105 duration-300"
                     >
                       Learn More
                     </Button>
@@ -149,7 +174,10 @@ const BannerSection = () => {
                 </div>
 
                 {/* Trust Indicators */}
-                <div className="pt-8 flex items-center justify-center gap-6">
+                <div
+                  className="slide-up-content pt-3 flex flex-col md:flex-row items-center justify-center gap-4"
+                  style={{ transitionDelay: "1600ms" }}
+                >
                   <div className="flex -space-x-4">
                     {[...Array(5)].map((_, i) => (
                       <div
@@ -166,14 +194,14 @@ const BannerSection = () => {
                     ))}
                   </div>
                   <div>
-                    <div className="flex items-center gap-1 text-yellow-400">
+                    <div className="flex items-center justify-center md:justify-start gap-1 text-yellow-400">
                       <Star className="w-4 h-4 fill-current" />
                       <Star className="w-4 h-4 fill-current" />
                       <Star className="w-4 h-4 fill-current" />
                       <Star className="w-4 h-4 fill-current" />
                       <Star className="w-4 h-4 fill-current" />
                     </div>
-                    <p className="text-sm text-slate-300 font-medium">
+                    <p className="text-xs md:text-sm text-slate-300 font-medium">
                       Trusted by 500+ Families
                     </p>
                   </div>
@@ -182,6 +210,34 @@ const BannerSection = () => {
             </Container>
           </SwiperSlide>
         ))}
+
+        {/* --- CUSTOM CONTROLS LAYER --- */}
+        <div className="absolute top-1/2 left-0 w-full z-20 -translate-y-1/2 pointer-events-none">
+          <Container className="flex items-center justify-between px-4">
+            <button
+              ref={(node) => setPrevEl(node)}
+              className="pointer-events-auto group custom-prev w-12 h-12 rounded-full md:border border-white/30 bg-transparent md:bg-white/10 md:backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-slate-900 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+            >
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <button
+              ref={(node) => setNextEl(node)}
+              className="pointer-events-auto custom-next w-12 h-12 rounded-full md:border border-white/30 md:bg-white/10 md:backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-slate-900 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 group"
+            >
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </Container>
+        </div>
+
+        {/* Pagination Indicator */}
+        <div className="absolute bottom-10 left-0 w-full z-20 pointer-events-none">
+          <Container className="w-full flex items-center justify-center">
+            <div
+              ref={(node) => setPaginationEl(node)}
+              className="custom-pagination flex items-center justify-center gap-2 pointer-events-auto"
+            ></div>
+          </Container>
+        </div>
       </Swiper>
     </section>
   );
