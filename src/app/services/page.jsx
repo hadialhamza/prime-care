@@ -16,7 +16,7 @@ const allServices = [
     price: "From $15/hr",
     rating: 4.9,
     image:
-      "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?q=80&w=600&auto=format&fit=crop",
+      "https://img.freepik.com/free-photo/pretty-sister-spending-time-with-her-baby-brother-sitting-floor-bedroom-beautiful-young-babysitter-playing-with-little-boy-indoors-holding-stuffed-toy-duck-infancy-childcare-motherhood_344912-7.jpg",
     features: ["Safe Supervision", "Homework Help", "Bedtime Routines"],
   },
   {
@@ -26,8 +26,7 @@ const allServices = [
       "Compassionate support for seniors. We assist with daily living, medication reminders, and provide meaningful companionship.",
     price: "From $18/hr",
     rating: 4.8,
-    image:
-      "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=600&auto=format&fit=crop",
+    image: "https://plus.unsplash.com/premium_photo-1663036892289-f19453cb7915",
     features: ["Mobility Support", "Medication Reminders", "Meal Prep"],
   },
   {
@@ -37,25 +36,28 @@ const allServices = [
       "Specialized medical assistance at home. Our trained caregivers help with post-surgery recovery and chronic illness management.",
     price: "From $25/hr",
     rating: 5.0,
-    image:
-      "https://images.unsplash.com/photo-1584515933487-9bfa05d1c20f?q=80&w=600&auto=format&fit=crop",
+    image: "https://plus.unsplash.com/premium_photo-1681484171204-8a91ec61c5c3",
     features: ["Vitals Monitoring", "Wound Care", "Post-Op Support"],
   },
 ];
 
 const ServicesPage = () => {
   return (
-    <div className="bg-white dark:bg-slate-950 min-h-screen pb-20">
+    <div className="bg-background pb-20">
       {/* --- Page Header --- */}
-      <div className="bg-slate-50 dark:bg-slate-900 py-16 mb-16 border-b border-slate-100 dark:border-slate-800">
+
+      <div className="py-16 mb-16">
         <Container className="text-center">
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
-            Our Services
-          </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Choose from our range of professional caregiving services tailored
-            to meet the unique needs of your family.
-          </p>
+          <SectionHeading
+            title={
+              <span>
+                Our <span className="text-primary">Services</span>
+              </span>
+            }
+            titleClassName="text-4xl md:text-5xl"
+            description="Choose from our range of professional caregiving services tailored to meet the unique needs of your family."
+            align="center"
+          />
         </Container>
       </div>
 
@@ -65,7 +67,7 @@ const ServicesPage = () => {
           {allServices.map((service) => (
             <div
               key={service.id}
-              className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+              className="group bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
               {/* Image */}
               <div className="relative h-56 overflow-hidden">
@@ -82,7 +84,7 @@ const ServicesPage = () => {
               </div>
 
               {/* Content */}
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col grow">
                 <div className="mb-4">
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 line-clamp-1">
                     {service.title}
@@ -132,7 +134,7 @@ const ServicesPage = () => {
         </div>
 
         {/* --- Custom Request CTA --- */}
-        <div className="mt-24 bg-primary rounded-3xl p-8 md:p-12 text-center text-white">
+        <div className="mt-24 bg-primary dark:bg-primary/70 rounded-3xl p-8 md:p-12 text-center text-white">
           <h2 className="text-3xl font-bold mb-4">Need something specific?</h2>
           <p className="text-primary-foreground/90 max-w-xl mx-auto mb-8">
             If you have special requirements or need a custom care plan, please
