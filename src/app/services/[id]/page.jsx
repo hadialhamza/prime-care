@@ -31,6 +31,7 @@ const servicesData = [
     rating: 4.9,
     reviews: 120,
     image: "https://i.ibb.co.com/Y43CRjS4/baby-caregiver.png",
+    metaImage: "https://i.ibb.co.com/Hc95j6C/Baby-Care.png",
   },
   {
     id: "elderly-care",
@@ -49,6 +50,7 @@ const servicesData = [
     rating: 4.8,
     reviews: 85,
     image: "https://i.ibb.co.com/3Y0PPPWf/old-caregiver.jpg",
+    metaImage: "https://i.ibb.co.com/MxVF1GX1/Elderly-Service.png",
   },
   {
     id: "sick-care",
@@ -67,6 +69,7 @@ const servicesData = [
     rating: 5.0,
     reviews: 42,
     image: "https://i.ibb.co.com/PZxSDyC4/nerd-caregiver.png",
+    metaImage: "https://i.ibb.co.com/99dt66pW/Sick-People.png",
   },
 ];
 
@@ -74,9 +77,41 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
   const service = servicesData.find((s) => s.id === id);
 
+  if (!service) {
+    return {
+      title: "Service Not Found | PrimeCare",
+      description: "The requested service could not be found.",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const title = `${service.title} | PrimeCare`;
+  const desc = service.tagline;
+  const url = `/services/${id}`;
+
   return {
-    title: service ? service.title : "Service Details",
-    description: service ? service.tagline : "Service details page",
+    title,
+    description: desc,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description: desc,
+      url,
+      images: [
+        {
+          url: service.metaImage,
+          width: 1200,
+          height: 630,
+          alt: `PrimeCare — ${service.title}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: desc,
+      images: [service.metaImage],
+    },
   };
 }
 
