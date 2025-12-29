@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -15,6 +15,8 @@ import { Lock, Mail } from "lucide-react";
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const {
     register,
@@ -36,7 +38,7 @@ const LoginForm = () => {
         toast.error("Invalid email or password");
       } else {
         toast.success("Welcome back! Login successful");
-        router.push("/");
+        router.push(callbackUrl);
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -46,7 +48,7 @@ const LoginForm = () => {
   };
 
   const handleGoogleLogin = () => {
-    signIn("google", { callbackUrl: "/" });
+    signIn("google", { callbackUrl: callbackUrl });
   };
 
   return (
