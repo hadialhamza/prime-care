@@ -12,22 +12,18 @@ import {
   CheckCircle2,
   Calendar as CalendarIcon,
 } from "lucide-react";
-import { format } from "date-fns"; // Import date-fns
-
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/shared/Container";
 import ListboxSelect from "@/components/ui/listbox";
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { HeadlessInput } from "@/components/ui/headless-input";
-import { Calendar } from "@/components/ui/calendar"; // Import Calendar
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"; // Import Popover
-import { cn } from "@/lib/utils"; // Import cn utility
-
-// Import Data
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import divisionsData from "@/data/division.json";
 import locationsData from "@/data/locations.json";
 
@@ -56,7 +52,6 @@ const BookingPage = () => {
 
   const service = servicesDB[id] || servicesDB["baby-sitting"];
 
-  // Initialize date as null or undefined instead of empty string for Date object
   const [formData, setFormData] = useState({
     date: undefined,
     days: 0,
@@ -67,11 +62,9 @@ const BookingPage = () => {
     address: "",
   });
 
-  // Derived State for Location Filtering
   const [availableDistricts, setAvailableDistricts] = useState([]);
   const [availableCities, setAvailableCities] = useState([]);
 
-  // Effect to filter districts when division changes
   useEffect(() => {
     if (formData.division) {
       const filteredDistricts = locationsData.filter(
@@ -83,7 +76,6 @@ const BookingPage = () => {
     }
   }, [formData.division]);
 
-  // Effect to filter cities when district changes
   useEffect(() => {
     if (formData.district) {
       const districtData = locationsData.find(
@@ -144,7 +136,6 @@ const BookingPage = () => {
       userEmail: session?.user?.email,
       userName: session?.user?.name,
       ...formData,
-      // Ensure date is formatted as string if your API expects string
       date: formData.date ? formData.date.toISOString() : null,
       totalCost,
       status: "Pending",
@@ -195,7 +186,7 @@ const BookingPage = () => {
                       <Button
                         variant={"outline"}
                         className={cn(
-                          "w-full justify-start text-left font-normal h-[46px] rounded-lg border-slate-200 dark:border-slate-700 bg-transparent",
+                          "w-full justify-start text-left font-normal h-11.5 rounded-lg border-slate-200 dark:border-slate-700 bg-transparent",
                           !formData.date && "text-muted-foreground"
                         )}
                       >

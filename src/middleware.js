@@ -1,13 +1,23 @@
-import { withAuth } from "next-auth/middleware";
+import { getToken } from "next-auth/jwt";
+import { NextResponse } from "next/server";
 
-export default withAuth({
-  // যদি ইউজার লগইন না থাকে, তবে তাকে এই পেজে পাঠানো হবে
-  pages: {
-    signIn: "/login",
-  },
-});
+export async function middleware(request) {
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  const { pathname } = request.nextUrl;
+
+  if (token) {
+    return NextResponse.next();
+  }
+
+  const signInUrl = new URL("/login", request.url);
+  signInUrl.searchParams.set("callbackUrl", pathname);
+  return NextResponse.redirect(signInUrl);
+}
 
 export const config = {
-  // কোন কোন রাউট প্রোটেক্টেড থাকবে
   matcher: ["/booking/:path*", "/my-bookings"],
 };
