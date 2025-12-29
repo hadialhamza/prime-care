@@ -5,6 +5,10 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Login",
+};
+
 const LoginPage = () => {
   return (
     <div className="bg-linear-to-r from-primary to-primary/80 dark:from-sidebar dark:to-sidebar/90 pb-20">

@@ -10,7 +10,10 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-  title: "PrimeCare | Premium Care Services for Your Loved Ones",
+  title: {
+    default: "PrimeCare | Premium Care Services for Your Loved Ones",
+    template: "%s | PrimeCare",
+  },
   description:
     "PrimeCare helps you book trusted baby care, elderly care, and sick care services with flexible scheduling, transparent pricing, and a simple booking experience.",
 };

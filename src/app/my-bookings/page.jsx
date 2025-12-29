@@ -121,21 +121,18 @@ const MyBookingsPage = () => {
                       <td className="p-6">
                         <span
                           className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold capitalize
-                          ${
-                            booking.status === "Pending"
+                          ${booking.status === "Pending"
                               ? "bg-yellow-100 text-yellow-700 border border-yellow-200"
                               : ""
-                          }
-                          ${
-                            booking.status === "Confirmed"
+                            }
+                          ${booking.status === "Confirmed"
                               ? "bg-green-100 text-green-700 border border-green-200"
                               : ""
-                          }
-                          ${
-                            booking.status === "Cancelled"
+                            }
+                          ${booking.status === "Cancelled"
                               ? "bg-red-100 text-red-700 border border-red-200"
                               : ""
-                          }
+                            }
                         `}
                         >
                           {booking.status}
@@ -220,11 +217,10 @@ const MyBookingsPage = () => {
                 <div className="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
                   <span className="text-slate-500">Status</span>
                   <span
-                    className={`font-bold capitalize ${
-                      selectedBooking.status === "Cancelled"
+                    className={`font-bold capitalize ${selectedBooking.status === "Cancelled"
                         ? "text-red-500"
                         : "text-green-600"
-                    }`}
+                      }`}
                   >
                     {selectedBooking.status}
                   </span>

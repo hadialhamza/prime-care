@@ -4,6 +4,10 @@ import Container from "@/components/shared/Container";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { Heart, ShieldCheck, Users, Clock } from "lucide-react";
 
+export const metadata = {
+  title: "About Us",
+};
+
 const AboutPage = () => {
   return (
     <div className="bg-background pb-20">

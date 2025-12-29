@@ -4,6 +4,10 @@ import SectionHeading from "@/components/shared/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Send, MessageCircleQuestion } from "lucide-react";
 
+export const metadata = {
+  title: "Contact Us",
+};
+
 const ContactPage = () => {
   return (
     <div className="bg-background pb-20">

@@ -41,6 +41,10 @@ const allServices = [
   },
 ];
 
+export const metadata = {
+  title: "Our Services",
+};
+
 const ServicesPage = () => {
   return (
     <div className="bg-background pb-20">

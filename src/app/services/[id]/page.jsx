@@ -70,6 +70,16 @@ const servicesData = [
   },
 ];
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const service = servicesData.find((s) => s.id === id);
+
+  return {
+    title: service ? service.title : "Service Details",
+    description: service ? service.tagline : "Service details page",
+  };
+}
+
 const ServiceDetailsPage = async ({ params }) => {
   const { id } = await params;
 
