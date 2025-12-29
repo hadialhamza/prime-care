@@ -26,7 +26,7 @@ const allServices = [
       "Compassionate support for seniors. We assist with daily living, medication reminders, and provide meaningful companionship.",
     price: "From $18/hr",
     rating: 4.8,
-    image: "https://plus.unsplash.com/premium_photo-1663036892289-f19453cb7915",
+    image: "https://i.ibb.co.com/3Y0PPPWf/old-caregiver.jpg",
     features: ["Mobility Support", "Medication Reminders", "Meal Prep"],
   },
   {
@@ -36,7 +36,7 @@ const allServices = [
       "Specialized medical assistance at home. Our trained caregivers help with post-surgery recovery and chronic illness management.",
     price: "From $25/hr",
     rating: 5.0,
-    image: "https://plus.unsplash.com/premium_photo-1681484171204-8a91ec61c5c3",
+    image: "https://i.ibb.co.com/PZxSDyC4/nerd-caregiver.png",
     features: ["Vitals Monitoring", "Wound Care", "Post-Op Support"],
   },
 ];

@@ -85,18 +85,20 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const title = `${service.title} | PrimeCare`;
+  const title = service.title;
   const desc = service.tagline;
   const url = `/services/${id}`;
+  const fullTitle = `${title} | PrimeCare`;
 
   return {
     title,
     description: desc,
     alternates: { canonical: url },
     openGraph: {
-      title,
-      description: desc,
       url,
+      type: "website",
+      title: fullTitle,
+      description: desc,
       images: [
         {
           url: service.metaImage,
@@ -108,7 +110,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: fullTitle,
       description: desc,
       images: [service.metaImage],
     },
