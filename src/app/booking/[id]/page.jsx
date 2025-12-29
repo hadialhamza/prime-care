@@ -5,9 +5,31 @@ import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import { MapPin, Clock, CreditCard, CheckCircle2 } from "lucide-react";
+import {
+  MapPin,
+  Clock,
+  CreditCard,
+  CheckCircle2,
+  Calendar as CalendarIcon,
+} from "lucide-react";
+import { format } from "date-fns"; // Import date-fns
+
 import { Button } from "@/components/ui/button";
 import Container from "@/components/shared/Container";
+import ListboxSelect from "@/components/ui/listbox";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
+import { HeadlessInput } from "@/components/ui/headless-input";
+import { Calendar } from "@/components/ui/calendar"; // Import Calendar
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"; // Import Popover
+import { cn } from "@/lib/utils"; // Import cn utility
+
+// Import Data
+import divisionsData from "@/data/division.json";
+import locationsData from "@/data/locations.json";
 
 const servicesDB = {
   "baby-sitting": {
@@ -27,12 +49,6 @@ const servicesDB = {
   },
 };
 
-const divisions = ["Dhaka", "Chittagong", "Rajshahi", "Khulna", "Sylhet"];
-const districts = {
-  Dhaka: ["Dhaka City", "Gazipur", "Narayanganj"],
-  Chittagong: ["Chittagong City", "Cox's Bazar", "Comilla"],
-};
-
 const BookingPage = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -40,14 +56,45 @@ const BookingPage = () => {
 
   const service = servicesDB[id] || servicesDB["baby-sitting"];
 
+  // Initialize date as null or undefined instead of empty string for Date object
   const [formData, setFormData] = useState({
-    date: "",
+    date: undefined,
     days: 0,
     duration: 1,
-    division: "Dhaka",
-    district: "Dhaka City",
+    division: "",
+    district: "",
+    city: "",
     address: "",
   });
+
+  // Derived State for Location Filtering
+  const [availableDistricts, setAvailableDistricts] = useState([]);
+  const [availableCities, setAvailableCities] = useState([]);
+
+  // Effect to filter districts when division changes
+  useEffect(() => {
+    if (formData.division) {
+      const filteredDistricts = locationsData.filter(
+        (loc) => loc.region === formData.division
+      );
+      setAvailableDistricts(filteredDistricts);
+    } else {
+      setAvailableDistricts([]);
+    }
+  }, [formData.division]);
+
+  // Effect to filter cities when district changes
+  useEffect(() => {
+    if (formData.district) {
+      const districtData = locationsData.find(
+        (loc) =>
+          loc.district === formData.district && loc.region === formData.division
+      );
+      setAvailableCities(districtData ? districtData.covered_area : []);
+    } else {
+      setAvailableCities([]);
+    }
+  }, [formData.district, formData.division]);
 
   const [totalCost, setTotalCost] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,9 +110,28 @@ const BookingPage = () => {
     setTotalCost(cost);
   }, [formData.duration, formData.days, service.price]);
 
+  // Handle standard Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle Date Selection specifically for Shadcn Calendar
+  const handleDateSelect = (date) => {
+    setFormData((prev) => ({ ...prev, date: date }));
+  };
+
+  // Handle Select Change
+  const handleSelectChange = (name, value) => {
+    setFormData((prev) => {
+      if (name === "division") {
+        return { ...prev, division: value, district: "", city: "" };
+      }
+      if (name === "district") {
+        return { ...prev, district: value, city: "" };
+      }
+      return { ...prev, [name]: value };
+    });
   };
 
   const handleBooking = async (e) => {
@@ -78,6 +144,8 @@ const BookingPage = () => {
       userEmail: session?.user?.email,
       userName: session?.user?.name,
       ...formData,
+      // Ensure date is formatted as string if your API expects string
+      date: formData.date ? formData.date.toISOString() : null,
       totalCost,
       status: "Pending",
       bookingDate: new Date().toISOString(),
@@ -117,111 +185,133 @@ const BookingPage = () => {
                 <Clock className="w-5 h-5 text-primary" /> Schedule
               </h2>
               <div className="grid md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                {/* --- SHADCN DATE PICKER START --- */}
+                <div className="flex flex-col gap-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                     Service Date
                   </label>
-                  <input
-                    type="date"
-                    name="date"
-                    required
-                    onChange={handleChange}
-                    className="w-full p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent dark:text-white"
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full justify-start text-left font-normal h-[46px] rounded-lg border-slate-200 dark:border-slate-700 bg-transparent",
+                          !formData.date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {formData.date ? (
+                          format(formData.date, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={formData.date}
+                        onSelect={handleDateSelect}
+                        disabled={(date) =>
+                          date < new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                {/* --- SHADCN DATE PICKER END --- */}
+
+                <div>
+                  <ListboxSelect
+                    label="Duration (Days)"
+                    value={parseInt(formData.days || 0)}
+                    onChange={(val) => handleSelectChange("days", val)}
+                    options={[
+                      { value: 0, label: "Select Days" },
+                      ...[1, 2, 3, 4, 5, 7, 10, 15, 30].map((d) => ({
+                        value: d,
+                        label: `${d} Days`,
+                      })),
+                    ]}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Duration (Days)
-                  </label>
-                  <select
-                    name="days"
-                    value={formData.days}
-                    onChange={handleChange}
-                    className="w-full p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent dark:text-white"
-                  >
-                    <option value="0">Select Days</option>
-                    {[1, 2, 3, 4, 5, 7, 10, 15, 30].map((d) => (
-                      <option key={d} value={d}>
-                        {d} Days
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Duration (Hours)
-                  </label>
-                  <select
-                    name="duration"
-                    value={formData.duration}
-                    onChange={handleChange}
+                  <ListboxSelect
+                    label="Duration (Hours)"
+                    value={parseInt(formData.duration || 1)}
+                    onChange={(val) => handleSelectChange("duration", val)}
                     disabled={parseInt(formData.days || 0) > 0}
-                    className="w-full p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent dark:text-white disabled:opacity-50"
-                  >
-                    {[1, 2, 3, 4, 5, 6, 8, 10, 12, 24].map((h) => (
-                      <option key={h} value={h}>
-                        {h} Hours
-                      </option>
-                    ))}
-                  </select>
+                    options={[1, 2, 3, 4, 5, 6, 8, 10, 12, 24].map((h) => ({
+                      value: h,
+                      label: `${h} Hours`,
+                    }))}
+                  />
                 </div>
               </div>
             </div>
 
+            {/* 2. Location Section */}
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
               <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-primary" /> Location Details
               </h2>
-              <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <div className="grid md:grid-cols-3 gap-4 mb-4">
+                {/* Division Select */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Division
-                  </label>
-                  <select
-                    name="division"
-                    onChange={handleChange}
+                  <ListboxSelect
+                    label="Division"
                     value={formData.division}
-                    className="w-full p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent dark:text-white"
-                  >
-                    {divisions.map((div) => (
-                      <option key={div} value={div}>
-                        {div}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={(val) => handleSelectChange("division", val)}
+                    options={divisionsData.map((div) => ({
+                      value: div,
+                      label: div,
+                    }))}
+                    placeholder="Select Division"
+                  />
                 </div>
 
+                {/* District Select */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    District
-                  </label>
-                  <select
-                    name="district"
-                    onChange={handleChange}
-                    className="w-full p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent dark:text-white"
-                  >
-                    {(districts[formData.division] || ["Dhaka City"]).map(
-                      (dist) => (
-                        <option key={dist} value={dist}>
-                          {dist}
-                        </option>
-                      )
-                    )}
-                  </select>
+                  <ListboxSelect
+                    label="District"
+                    value={formData.district}
+                    onChange={(val) => handleSelectChange("district", val)}
+                    disabled={!formData.division}
+                    options={availableDistricts.map((loc) => ({
+                      value: loc.district,
+                      label: loc.district,
+                    }))}
+                    placeholder="Select District"
+                  />
+                </div>
+
+                {/* City/Area Select */}
+                <div>
+                  <ListboxSelect
+                    label="City / Area"
+                    value={formData.city}
+                    onChange={(val) => handleSelectChange("city", val)}
+                    disabled={!formData.district}
+                    options={availableCities.map((area) => ({
+                      value: area,
+                      label: area,
+                    }))}
+                    placeholder="Select Area"
+                  />
                 </div>
               </div>
 
+              {/* Full Address */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Full Address / Area
-                </label>
-                <textarea
+                <HeadlessInput
+                  label="Full Address / House No."
                   name="address"
+                  textarea
                   required
                   placeholder="House No, Road No, Flat No..."
+                  value={formData.address}
                   onChange={handleChange}
-                  rows={3}
-                  className="w-full p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent dark:text-white"
                 />
               </div>
             </div>
